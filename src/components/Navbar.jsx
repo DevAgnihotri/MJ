@@ -74,10 +74,10 @@ const NavBar = () => {
           <div className="flex items-center gap-7">
             <img src="/img/logo.png" alt="logo" className="w-10" />            <Button
               id="product-button"
-              title="MOONWALK"
+              title="MONOCOLOR"
               rightIcon={<TiLocationArrow />}
               containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
-              onClick={() => navigate('/moonwalk')}
+              onClick={() => navigate('/color-palette-maker/index.html')}
             />
           </div>
 

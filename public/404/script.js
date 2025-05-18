@@ -11,7 +11,16 @@ document.addEventListener("DOMContentLoaded", () => {
 	
 	// Skip to 1:26 (86 seconds) in the song
 	bgMusic.currentTime = 86;
-	
+
+	// Always try to autoplay on load (may be blocked by browser, but will work if allowed)
+	bgMusic.volume = 0.4;
+	bgMusic.play().then(() => {
+		isMusicPlaying = true;
+		toggleButton.textContent = "🔊";
+	}).catch(() => {
+		// If auto-play fails, wait for user interaction
+	});
+
 	if (hasInteracted) {
 		// Auto-play if they've interacted before in this session
 		bgMusic.volume = 0.4;
