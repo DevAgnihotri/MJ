@@ -99,12 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
             guessInput.value = '';
             return;
         }
-        
-        // Play sound effect
-        if (soundEnabled) {
-            guessSound.currentTime = 0;
-            guessSound.play();
-        }
+          // No sound effect for guessing - only background music
         
         // Add to guesses array
         guesses.push(playerGuess);
@@ -136,16 +131,10 @@ document.addEventListener('DOMContentLoaded', function() {
                 hintText.style.color = 'var(--mj-red)';
                 guessItem.classList.add('too-high');
             }
-            
-            // Add guess to history and play hint sound
+              // Add guess to history
             guessHistory.appendChild(guessItem);
             guessInput.value = '';
             guessInput.focus();
-            
-            if (soundEnabled) {
-                hintSound.currentTime = 0;
-                hintSound.play();
-            }
         }
     }
     
@@ -187,12 +176,10 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             return "Getting warmer, but still too high!";
         }
-    }
-      // Win condition
+    }    // Win condition
     function gameWon() {
         if (soundEnabled) {
             bgMusic.pause();
-            winSound.play();
         }
         
         const attemptsUsed = levels[gameLevel].attempts - attemptsLeft;
@@ -221,12 +208,10 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(() => {
             document.body.classList.remove('victory-glow');
         }, 3000);
-    }
-      // Lose condition
+    }    // Lose condition
     function gameLost() {
         if (soundEnabled) {
             bgMusic.pause();
-            loseSound.play();
         }
         
         // Show result modal
@@ -313,27 +298,5 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keypress', function(e) {
         if (e.key === 'Enter' && !instructionsDiv.classList.contains('hidden')) {
             initGame();
-        }
-    });      // Check if sound file exists
-    function checkSoundExists(filename) {
-        const audioElement = document.createElement('audio');
-        audioElement.src = `./sounds/${filename}`;
-        
-        audioElement.addEventListener('error', () => {
-            console.log(`Sound file may not exist or has issues: ${filename}`);
-            alert(`Sound file ${filename} may be missing. Please use the sound extractor tool in the sounds folder to create it from MJ songs.`);
-        });
-        
-        // Try to load but don't play
-        audioElement.load();
-    }
-    
-    // Check if sound files exist (for development)
-    checkSoundExists('guess.mp3');
-    checkSoundExists('win.mp3');
-    checkSoundExists('lose.mp3');
-    checkSoundExists('hint.mp3');
-    
-    // Tell user about the sound extractor if needed
-    console.log("Need sound effects? Visit /mj-number-game/sounds/ to create them from MJ songs!");
+        }    });
 });
