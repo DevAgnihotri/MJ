@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
+  <title>MJ Moonwalk</title>
+  <style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: #222;
+    font-family: 'Arial', sans-serif;
+  }
+
+  .container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+  }
+
+  .character {
+    width: 120px;
+    height: 240px;
+    background-color: #333;
+    position: relative;
+    margin-bottom: 50px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    border-radius: 10px;
+    background-image: url('../img/smooth_criminal.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: contrast(1.2);
+  }
+  
+  .floor {
+    width: 100%;
+    height: 10px;
+    background: linear-gradient(90deg, #444, #555, #444);
+    margin-top: 20px;
+  }
+  
+  .controls {
+    margin-top: 30px;
+    display: flex;
+    gap: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 18px;
+    background: #555;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  button:hover {
+    background: #777;
+    transform: scale(1.05);
+  }
+  
+  button:active {
+    transform: scale(0.95);
+  }
+  
+  .title {
+    font-size: 36px;
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255,255,255,0.5);
+  }
+  
+  .sparkle {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: white;
+    border-radius: 50%;
+    opacity: 0;
+  }
+  
+  @keyframes moonwalk {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-10px) rotate(-2deg); }
+    50% { transform: translateX(0); }
+    75% { transform: translateX(10px) rotate(2deg); }
+    100% { transform: translateX(0); }
+  }
+  
+  @keyframes sparkle {
+    0% { opacity: 0; transform: scale(0); }
+    50% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(0); }
+  }
+  
+  .moonwalking {
+    animation: moonwalk 0.5s infinite;
+  }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">MJ MOONWALK EXPERIENCE</div>
+    <div class="character" id="mj"></div>
+    <div class="floor"></div>
+    <div class="controls">
+      <button id="moonwalkBtn">MOONWALK</button>
+      <button id="stopBtn">STOP</button>
+    </div>
+  </div>
+
+  <audio id="music" src="../audio/Smooth_Criminal.mp3" preload="auto"></audio>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const character = document.getElementById('mj');
+      const music = document.getElementById('music');
+      const moonwalkBtn = document.getElementById('moonwalkBtn');
+      const stopBtn = document.getElementById('stopBtn');
+      
+      function createSparkle() {
+        const sparkle = document.createElement('div');
+        sparkle.className = 'sparkle';
+        
+        // Random position around MJ
+        sparkle.style.left = Math.random() * 120 + 'px';
+        sparkle.style.top = Math.random() * 240 + 'px';
+        
+        // Add to character
+        character.appendChild(sparkle);
+        
+        // Animate
+        sparkle.style.animation = 'sparkle 1s forwards';
+        
+        // Remove after animation
+        setTimeout(() => {
+          sparkle.remove();
+        }, 1000);
+      }
+      
+      function startSparkles() {
+        return setInterval(createSparkle, 200);
+      }
+      
+      let sparkleInterval;
+      
+      moonwalkBtn.addEventListener('click', function() {
+        character.classList.add('moonwalking');
+        music.currentTime = 0;
+        music.play();
+        sparkleInterval = startSparkles();
+      });
+      
+      stopBtn.addEventListener('click', function() {
+        character.classList.remove('moonwalking');
+        music.pause();
+        clearInterval(sparkleInterval);
+      });
+      
+      // Stop music when it ends
+      music.addEventListener('ended', function() {
+        character.classList.remove('moonwalking');
+        clearInterval(sparkleInterval);
+      });
+    });
+  </script>
+</body>
+</html>
