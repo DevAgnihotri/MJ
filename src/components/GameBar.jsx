@@ -16,28 +16,27 @@ const GameBar = () => (
     <a href="/mafia/index.html" target="_blank" rel="noopener noreferrer">
       <span></span><span></span><span></span><span></span>
       3. MAFIA
-    </a>
-    <a href="/moonwalk/index.html" target="_blank" rel="noopener noreferrer" className="audio-dash-btn">
+    </a>    <a href="/moonwalk/index.html" target="_blank" rel="noopener noreferrer">
       <span></span><span></span><span></span><span></span>
       4. MOONWALK
     </a>
-    <a href="/rock-paper-scissors/index.html" target="_blank" rel="noopener noreferrer" className="audio-dash-btn">
+    <a href="/rock-paper-scissors/index.html" target="_blank" rel="noopener noreferrer">
       <span></span><span></span><span></span><span></span>
       5. ROCK PAPER SCISSORS
     </a>
-    <a href="/AI-roller/index.html" target="_blank" rel="noopener noreferrer" className="audio-dash-btn">
+    <a href="/AI-roller/index.html" target="_blank" rel="noopener noreferrer">
       <span></span><span></span><span></span><span></span>
       6. AI-ROLLER
     </a>
-    <a href="/speed-analysis/speed_analysis.html" target="_blank" rel="noopener noreferrer" className="audio-dash-btn">
+    <a href="/speed-analysis/speed_analysis.html" target="_blank" rel="noopener noreferrer">
       <span></span><span></span><span></span><span></span>
       7. SPEED ANALYSIS
     </a>
-    <a href="/colorful-memory-game/colorful_memory_game.html" target="_blank" rel="noopener noreferrer" className="audio-dash-btn">
+    <a href="/colorful-memory-game/colorful_memory_game.html" target="_blank" rel="noopener noreferrer">
       <span></span><span></span><span></span><span></span>
       8. COLORFUL MEMORY GAME
     </a>
-    <a href="/music-player/index.html" target="_blank" rel="noopener noreferrer" className="audio-dash-btn">
+    <a href="/music-player/index.html" target="_blank" rel="noopener noreferrer">
       <span></span><span></span><span></span><span></span>
       9. MJ MUSIC PLAYER
     </a>

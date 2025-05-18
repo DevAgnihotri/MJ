@@ -1,18 +1,362 @@
 <!DOCTYPE html>
+<html lang="en">
 <head>
-  <title>Speed Test Analysis</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MJ Speed Dash - Beat It With Your Typing!</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap">
+  <style>
+    :root {
+      --mj-red: #e3000b;
+      --mj-black: #111111;
+      --mj-white: #ffffff;
+      --mj-silver: #d0d0d0;
+      --mj-gold: #d4af37;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Roboto', sans-serif;
+      background-color: var(--mj-black);
+      color: var(--mj-white);
+      min-height: 100vh;
+      background-image: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), url('../img/back.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 10px rgba(227, 0, 11, 0.7);
+      position: relative;
+      display: inline-block;
+    }
+    
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--mj-red);
+      box-shadow: 0 0 10px var(--mj-red);
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      color: var(--mj-silver);
+      font-style: italic;
+    }
+    
+    .test-area {
+      background-color: rgba(17, 17, 17, 0.8);
+      border-radius: 10px;
+      padding: 2rem;
+      box-shadow: 0 0 30px rgba(227, 0, 11, 0.3);
+      margin-bottom: 2rem;
+      border: 1px solid var(--mj-silver);
+    }
+    
+    .text-section {
+      margin-bottom: 2rem;
+    }
+    
+    label {
+      display: block;
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--mj-silver);
+      font-weight: 300;
+    }
+    
+    textarea {
+      width: 100%;
+      padding: 1rem;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 2px solid transparent;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.1rem;
+      resize: none;
+      transition: all 0.3s;
+    }
+    
+    #inputText {
+      background-color: rgba(208, 208, 208, 0.2);
+      color: var(--mj-white);
+      border-color: var(--mj-silver);
+    }
+    
+    #userInput:focus {
+      border-color: var(--mj-red);
+      outline: none;
+      box-shadow: 0 0 10px rgba(227, 0, 11, 0.5);
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 1.5rem 0;
+    }
+    
+    #btn {
+      background-color: var(--mj-red);
+      color: var(--mj-white);
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1.2rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s;
+      box-shadow: 0 0 15px rgba(227, 0, 11, 0.5);
+      letter-spacing: 1px;
+    }
+    
+    #btn:hover {
+      background-color: #ff0011;
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(227, 0, 11, 0.7);
+    }
+    
+    #btn:active {
+      transform: scale(0.98);
+    }
+    
+    .quote-selector {
+      display: flex;
+      align-items: center;
+    }
+    
+    .quote-selector label {
+      margin: 0 1rem 0 0;
+    }
+    
+    select {
+      background-color: rgba(208, 208, 208, 0.2);
+      color: var(--mj-white);
+      border: 1px solid var(--mj-silver);
+      border-radius: 5px;
+      padding: 0.5rem;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    
+    select option {
+      background-color: #fff;
+      color: var(--mj-black);
+    }
+    
+    select:focus {
+      outline: none;
+      border-color: var(--mj-red);
+    }
+    
+    #output {
+      background-color: rgba(17, 17, 17, 0.8);
+      border-radius: 10px;
+      padding: 2rem;
+      border: 1px solid var(--mj-silver);
+      display: none;
+    }
+    
+    #output.active {
+      display: block;
+      animation: fadeIn 0.5s ease-in;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .result-title {
+      color: var(--mj-gold);
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
+      text-transform: uppercase;
+    }
+    
+    .stats-container {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    
+    .stat-card {
+      flex-basis: calc(33.333% - 1rem);
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 5px;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--mj-red);
+      margin-bottom: 0.5rem;
+      text-shadow: 0 0 5px rgba(227, 0, 11, 0.5);
+    }
+    
+    .stat-label {
+      color: var(--mj-silver);
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .message {
+      text-align: center;
+      font-size: 1.2rem;
+      padding: 1rem;
+      margin-top: 1rem;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+    }
+    
+    .success-message {
+      color: #4caf50;
+    }
+    
+    .error-message {
+      color: #f44336;
+    }
+    
+    .audio-controls {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      background-color: rgba(17, 17, 17, 0.8);
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      border: 1px solid var(--mj-silver);
+    }
+    
+    .music-btn {
+      background-color: var(--mj-red);
+      color: var(--mj-white);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.2rem;
+      margin-right: 10px;
+      transition: all 0.3s;
+    }
+    
+    .music-btn:hover {
+      background-color: #ff0011;
+      transform: scale(1.1);
+    }
+    
+    .song-info {
+      color: var(--mj-silver);
+      font-size: 0.9rem;
+    }
+    
+    .song-title {
+      color: var(--mj-white);
+      font-weight: bold;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+      
+      h1 {
+        font-size: 2.5rem;
+      }
+      
+      .stat-card {
+        flex-basis: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Speed Typing Analysis</h1>
-
-    <label for="inputText">Type the following text:</label><br>
-    <textarea id="inputText"  cols="50" rows="5" readonly placeholder="Get ready to type..."></textarea><br>
-
-    <label for="userInput">Your typing:</label><br>
-    <textarea id="userInput"  cols="50" rows="5" placeholder="Start typing when ready"></textarea><br>
-    <button onclick="startTest()" id="btn">Start Test</button>
-        <!-- <button onclick="endTest()" id="btn">End Test</button> -->
+  <div class="container">
+    <header>
+      <h1>MJ Speed Dash</h1>
+      <p class="subtitle">"Beat It" with your typing skills!</p>
+    </header>
+    
+    <div class="test-area">
+      <div class="text-section">
+        <label for="inputText">Type the following lyrics:</label>
+        <textarea id="inputText" rows="4" readonly placeholder="Get ready to type Michael Jackson's iconic lyrics..."></textarea>
+      </div>
+      
+      <div class="text-section">
+        <label for="userInput">Your typing:</label>
+        <textarea id="userInput" rows="4" placeholder="Start typing when ready..."></textarea>
+      </div>
+      
+      <div class="controls">
+        <button id="btn" onclick="startTest()">Start Test</button>
+        
+        <div class="quote-selector">
+          <label for="quoteSelect">Select lyrics:</label>
+          <select id="quoteSelect">
+            <option value="thriller">Thriller</option>
+            <option value="billie_jean">Billie Jean</option>
+            <option value="beat_it">Beat It</option>
+            <option value="smooth_criminal">Smooth Criminal</option>
+            <option value="bad">Bad</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    
     <div id="output"></div>
-    <script src="./speed_analysis.js"></script>
+  </div>
+  
+  <div class="audio-controls">
+    <button id="musicToggle" class="music-btn">▶</button>
+    <div class="song-info">
+      Now playing: <span class="song-title">Beat It</span>
+    </div>
+  </div>
+    <audio id="bgMusic" loop preload="auto">
+    <source src="../audio/Beat_It.mp3" type="audio/mp3">
+  </audio>
+  
+  <script src="./speed_analysis.js"></script>
 </body>
 </html>

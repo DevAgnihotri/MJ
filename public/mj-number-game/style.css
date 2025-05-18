@@ -1,0 +1,839 @@
+/* THRILLGUESSER - MJ NUMBER GAME CSS */
+:root {
+  --mj-red: #e3000b;
+  --mj-gold: #d4af37;
+  --mj-black: #121212;
+  --mj-white: #f5f5f5;
+  --mj-silver: #c0c0c0;
+  --mj-purple: #800080;
+  --mj-blue: #0000cd;
+  --neon-glow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px var(--mj-red),
+    0 0 82px var(--mj-red), 0 0 92px var(--mj-red), 0 0 102px var(--mj-red), 0 0 151px var(--mj-red);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Teko', sans-serif;
+  background-color: var(--mj-black);
+  color: var(--mj-white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* STAR BACKGROUND ANIMATION */
+.stars-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+#stars {
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: 1907px 1575px #FFF , 893px 268px #FFF , 1819px 557px #FFF , 1418px 1356px #FFF , 270px 1126px #FFF;
+  animation: animStar 50s linear infinite;
+}
+
+#stars:after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 1px;
+  height: 1px;
+  background: transparent;
+  box-shadow: 1907px 1575px #FFF , 893px 268px #FFF , 1819px 557px #FFF , 1418px 1356px #FFF , 270px 1126px #FFF;
+}
+
+#stars2 {
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: 1402px 1334px #FFF , 769px 582px #FFF , 580px 1535px #FFF , 1738px 706px #FFF , 201px 318px #FFF;
+  animation: animStar 100s linear infinite;
+}
+
+#stars2:after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  box-shadow: 1402px 1334px #FFF , 769px 582px #FFF , 580px 1535px #FFF , 1738px 706px #FFF , 201px 318px #FFF;
+}
+
+#stars3 {
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow: 1127px 1756px #FFF , 363px 1974px #FFF , 1357px 647px #FFF , 450px 1484px #FFF , 694px 272px #FFF;
+  animation: animStar 150s linear infinite;
+}
+
+#stars3:after {
+  content: " ";
+  position: absolute;
+  top: 2000px;
+  width: 3px;
+  height: 3px;
+  background: transparent;
+  box-shadow: 1127px 1756px #FFF , 363px 1974px #FFF , 1357px 647px #FFF , 450px 1484px #FFF , 694px 272px #FFF;
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0px);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}
+
+/* GLOWING BACKGROUND EFFECT */
+.glow-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(
+    circle at center,
+    rgba(227, 0, 11, 0.1) 0%,
+    rgba(128, 0, 128, 0.05) 30%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  z-index: -1;
+  pointer-events: none;
+  animation: glowPulse 8s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+  }
+}
+
+/* MAIN CONTAINER STYLES */
+.game-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  position: relative;
+  z-index: 2;
+  min-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* MOONWALKER SILHOUETTE ANIMATION */
+.moonwalker-silhouette {
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+  height: 150px;
+  width: 60px;
+  z-index: 0;
+  opacity: 0.6;
+}
+
+.hat {
+  position: absolute;
+  top: 0;
+  left: 15px;
+  width: 30px;
+  height: 20px;
+  background: var(--mj-white);
+  border-radius: 5px 5px 0 0;
+}
+
+.body {
+  position: absolute;
+  top: 20px;
+  left: 10px;
+  width: 40px;
+  height: 70px;
+  background: var(--mj-white);
+  border-radius: 15px 15px 0 0;
+}
+
+.legs {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 60px;
+  animation: moonwalk 2s infinite alternate;
+}
+
+.legs::before,
+.legs::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 60px;
+  background: var(--mj-white);
+}
+
+.legs::before {
+  left: 10px;
+  transform-origin: top;
+  animation: leftLeg 2s infinite alternate;
+}
+
+.legs::after {
+  right: 10px;
+  transform-origin: top;
+  animation: rightLeg 2s infinite alternate;
+}
+
+@keyframes moonwalk {
+  0% {
+    transform: translateX(5px);
+  }
+  100% {
+    transform: translateX(-5px);
+  }
+}
+
+@keyframes leftLeg {
+  0% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(15deg);
+  }
+}
+
+@keyframes rightLeg {
+  0% {
+    transform: rotate(15deg);
+  }
+  100% {
+    transform: rotate(-15deg);
+  }
+}
+
+/* HEADER STYLES */
+.game-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-family: 'Train One', cursive;
+  font-size: 4rem;
+  color: var(--mj-white);
+  letter-spacing: -2px;
+  text-shadow: 0 0 10px var(--mj-red), 0 0 20px var(--mj-purple);
+  position: relative;
+  display: inline-block;
+  animation: thrillPulse 2s infinite alternate;
+}
+
+.title-accent {
+  color: var(--mj-red);
+}
+
+@keyframes thrillPulse {
+  0%, 100% {
+    text-shadow: 0 0 10px var(--mj-red), 0 0 20px var(--mj-red);
+  }
+  50% {
+    text-shadow: 0 0 15px var(--mj-purple), 0 0 30px var(--mj-purple);
+  }
+}
+
+.subtitle {
+  font-family: 'Russo One', sans-serif;
+  font-size: 1rem;
+  color: var(--mj-gold);
+  letter-spacing: 2px;
+  margin-top: -5px;
+  text-shadow: 0 0 5px rgba(212, 175, 55, 0.5);
+}
+
+/* GAME LEVELS SELECTOR */
+.game-levels {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.level-switch {
+  display: flex;
+  background: rgba(18, 18, 18, 0.7);
+  border: 1px solid var(--mj-silver);
+  border-radius: 25px;
+  overflow: hidden;
+  box-shadow: 0 0 15px rgba(227, 0, 11, 0.3);
+}
+
+.level-option {
+  padding: 10px 20px;
+  cursor: pointer;
+  font-family: 'Russo One', sans-serif;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  color: var(--mj-silver);
+  position: relative;
+}
+
+.level-option:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 25%;
+  height: 50%;
+  width: 1px;
+  background-color: var(--mj-silver);
+}
+
+.level-option.active {
+  background: linear-gradient(to right, var(--mj-red), var(--mj-purple));
+  color: var(--mj-white);
+  text-shadow: 0 0 5px rgba(255, 255, 255, 0.8);
+}
+
+.level-option:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* GAME INSTRUCTIONS AREA */
+.game-instructions {
+  text-align: center;
+  padding: 2rem;
+  border-radius: 10px;
+  background: rgba(18, 18, 18, 0.7);
+  border: 1px solid var(--mj-silver);
+  margin-bottom: 2rem;
+  box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
+}
+
+.instructions-text {
+  font-size: 1.5rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.highlight {
+  color: var(--mj-red);
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(227, 0, 11, 0.7);
+}
+
+.shine-text {
+  position: relative;
+  color: var(--mj-gold);
+  font-weight: bold;
+  animation: shineText 3s infinite linear;
+  background: linear-gradient(90deg, var(--mj-gold) 0%, #fff 50%, var(--mj-gold) 100%);
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 2px rgba(212, 175, 55, 0.3);
+}
+
+@keyframes shineText {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* BUTTON STYLES */
+.neon-btn {
+  font-family: 'Russo One', sans-serif;
+  font-size: 1.2rem;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(45deg, var(--mj-red), var(--mj-purple));
+  color: var(--mj-white);
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  box-shadow: 0 0 15px rgba(227, 0, 11, 0.5);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.neon-btn:hover {
+  box-shadow: 0 0 25px rgba(227, 0, 11, 0.7);
+  transform: translateY(-3px);
+}
+
+.neon-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 0 10px rgba(227, 0, 11, 0.4);
+}
+
+.neon-btn::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transform: rotate(45deg);
+  transition: all 0.5s ease;
+  opacity: 0;
+}
+
+.neon-btn:hover::before {
+  animation: shineBtn 1.5s infinite;
+  opacity: 1;
+}
+
+@keyframes shineBtn {
+  0% {
+    left: -50%;
+    opacity: 0.7;
+  }
+  100% {
+    left: 150%;
+    opacity: 0;
+  }
+}
+
+/* GAME PLAY AREA */
+.game-play {
+  background: rgba(18, 18, 18, 0.7);
+  border: 1px solid var(--mj-silver);
+  border-radius: 10px;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.game-status {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+.status-item {
+  text-align: center;
+}
+
+.status-label {
+  font-size: 0.9rem;
+  color: var(--mj-silver);
+  margin-bottom: 5px;
+}
+
+.status-value {
+  font-family: 'Russo One', sans-serif;
+  font-size: 2rem;
+  color: var(--mj-white);
+  text-shadow: 0 0 10px rgba(227, 0, 11, 0.7);
+}
+
+/* GLOVE INPUT AREA */
+.glove-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin: 2rem 0;
+}
+
+.glove {
+  width: 80px;
+  height: 100px;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23FFFFFF" d="M30,15 C25,20 20,30 20,40 C20,50 20,60 30,80 C40,90 60,90 70,80 C80,60 80,50 80,40 C80,30 75,20 70,15 C65,10 60,10 50,15 C40,10 35,10 30,15 Z"/><path fill="%23FFFFFF" d="M30,15 C28,13 26,23 25,27 C24,32 23,40 23,45 C23,50 27,70 30,75 C35,80 30,60 30,50 C30,40 30,25 30,15 Z"/><path fill="%23FFFFFF" d="M40,15 C38,13 36,23 35,27 C34,32 33,40 33,45 C33,50 37,70 40,75 C45,80 40,60 40,50 C40,40 40,25 40,15 Z"/><path fill="%23FFFFFF" d="M50,15 C48,13 46,23 45,27 C44,32 43,40 43,45 C43,50 47,70 50,75 C55,80 50,60 50,50 C50,40 50,25 50,15 Z"/><path fill="%23FFFFFF" d="M60,15 C58,13 56,23 55,27 C54,32 53,40 53,45 C53,50 57,70 60,75 C65,80 60,60 60,50 C60,40 60,25 60,15 Z"/></svg>') no-repeat center center;
+  transform: rotate(-45deg);
+  margin-right: -20px;
+  position: relative;
+  z-index: 2;
+  animation: gloveMove 3s infinite alternate ease-in-out;
+}
+
+@keyframes gloveMove {
+  0% {
+    transform: rotate(-45deg) translateY(0);
+  }
+  100% {
+    transform: rotate(-45deg) translateY(-10px);
+  }
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+}
+
+#guess-input {
+  width: 120px;
+  height: 60px;
+  font-family: 'Londrina Outline', cursive;
+  font-size: 2.5rem;
+  background: transparent;
+  color: var(--mj-white);
+  border: 2px solid var(--mj-silver);
+  border-radius: 10px;
+  text-align: center;
+  margin-right: 10px;
+  text-shadow: var(--neon-glow);
+}
+
+#guess-input:focus {
+  outline: none;
+  border-color: var(--mj-gold);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+}
+
+#guess-btn {
+  height: 60px;
+  font-family: 'Russo One', sans-serif;
+  font-size: 1.2rem;
+  padding: 0 20px;
+  background: var(--mj-red);
+  border: none;
+  border-radius: 10px;
+  color: var(--mj-white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#guess-btn:hover {
+  background: var(--mj-purple);
+  box-shadow: 0 0 15px rgba(128, 0, 128, 0.5);
+}
+
+/* HINT DISPLAY */
+.hint-display {
+  text-align: center;
+  padding: 1rem;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  margin-top: 1rem;
+}
+
+.hint-text {
+  font-family: 'Teko', sans-serif;
+  font-size: 1.8rem;
+  color: var(--mj-gold);
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* GUESS HISTORY */
+.history-container {
+  margin-top: 1rem;
+}
+
+.history-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 1.2rem;
+  color: var(--mj-silver);
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.guess-history {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.guess-item {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Teko', sans-serif;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.too-low {
+  background: rgba(0, 0, 205, 0.3);
+  border: 2px solid var(--mj-blue);
+  color: var(--mj-white);
+}
+
+.too-high {
+  background: rgba(227, 0, 11, 0.3);
+  border: 2px solid var(--mj-red);
+  color: var(--mj-white);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* RESULT MODAL */
+#result-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  animation: fadeIn 0.5s ease-out;
+  transition: opacity 0.3s ease-out;
+}
+
+#result-modal.fade-out {
+  opacity: 0;
+}
+
+.modal-content {
+  background: rgba(18, 18, 18, 0.9);
+  border: 2px solid var(--mj-gold);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  box-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+}
+
+#result-title {
+  font-family: 'Train One', cursive;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px var(--mj-red);
+}
+
+#result-message {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: var(--mj-white);
+}
+
+.lights-animation {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 2rem;
+}
+
+.light {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  margin: 0 10px;
+  animation: lightPulse 1s infinite alternate;
+}
+
+.light:nth-child(1) {
+  background-color: var(--mj-red);
+  animation-delay: 0s;
+}
+
+.light:nth-child(2) {
+  background-color: var(--mj-gold);
+  animation-delay: 0.2s;
+}
+
+.light:nth-child(3) {
+  background-color: var(--mj-white);
+  animation-delay: 0.4s;
+}
+
+.light:nth-child(4) {
+  background-color: var(--mj-purple);
+  animation-delay: 0.6s;
+}
+
+.light:nth-child(5) {
+  background-color: var(--mj-blue);
+  animation-delay: 0.8s;
+}
+
+@keyframes lightPulse {
+  from {
+    box-shadow: 0 0 5px currentColor, 0 0 10px currentColor;
+    transform: scale(1);
+  }
+  to {
+    box-shadow: 0 0 10px currentColor, 0 0 20px currentColor;
+    transform: scale(1.2);
+  }
+}
+
+/* SOUND CONTROL */
+.sound-control {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#sound-toggle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  border: 2px solid var(--mj-silver);
+  color: var(--mj-white);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+#sound-toggle:hover {
+  border-color: var(--mj-gold);
+  transform: scale(1.1);
+}
+
+.sound-icon {
+  font-size: 1.2rem;
+}
+
+.song-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.8rem;
+  color: var(--mj-silver);
+}
+
+/* FOOTER */
+.game-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  margin-top: auto;
+}
+
+.back-btn {
+  font-family: 'Russo One', sans-serif;
+  font-size: 0.9rem;
+  color: var(--mj-silver);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.back-btn:hover {
+  color: var(--mj-white);
+  text-shadow: 0 0 5px var(--mj-white);
+}
+
+.credits {
+  font-family: 'Teko', sans-serif;
+  font-size: 1rem;
+  color: var(--mj-silver);
+}
+
+/* UTILITY CLASSES */
+.hidden {
+  display: none !important;
+}
+
+.shown {
+  display: block;
+}
+
+/* Victory glow effect */
+.victory-glow {
+  animation: victoryPulse 1s ease-in-out 3;
+}
+
+@keyframes victoryPulse {
+  0%, 100% {
+    background-color: var(--mj-black);
+  }
+  50% {
+    background-color: rgba(212, 175, 55, 0.2);
+  }
+}
+
+/* RESPONSIVE STYLES */
+@media (max-width: 768px) {
+  .title {
+    font-size: 3rem;
+  }
+  
+  .subtitle {
+    font-size: 0.9rem;
+  }
+  
+  .instructions-text {
+    font-size: 1.2rem;
+  }
+  
+  .moonwalker-silhouette {
+    display: none;
+  }
+  
+  #guess-input {
+    width: 100px;
+    height: 50px;
+    font-size: 2rem;
+  }
+  
+  #guess-btn {
+    height: 50px;
+    font-size: 1rem;
+  }
+  
+  .hint-text {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 2.5rem;
+  }
+  
+  .game-container {
+    padding: 1rem;
+  }
+  
+  .level-option {
+    padding: 8px 15px;
+    font-size: 0.8rem;
+  }
+  
+  .instructions-text {
+    font-size: 1rem;
+  }
+  
+  .neon-btn {
+    font-size: 1rem;
+    padding: 10px 20px;
+  }
+  
+  .glove {
+    width: 60px;
+    height: 80px;
+  }
+}

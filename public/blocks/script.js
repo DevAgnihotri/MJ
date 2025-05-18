@@ -295,4 +295,152 @@ class Game {
         requestAnimationFrame(() => { this.tick(); });
     }
 }
+// MJ Music Controls with Beat It option
+document.addEventListener('DOMContentLoaded', function() {
+  const badMusic = document.getElementById('bg-music');
+  const beatItMusic = document.getElementById('beat-it-music');
+  const musicToggle = document.getElementById('toggle-music');
+  const switchMusic = document.getElementById('switch-music');
+  const trackName = document.getElementById('track-name');
+  
+  let isMusicPlaying = false;
+  let currentTrack = 'Bad'; // Start with Bad as default
+  let currentAudio = badMusic; // Start with Bad audio element
+  
+  // Toggle play/pause
+  musicToggle.addEventListener('click', function() {
+    if (isMusicPlaying) {
+      currentAudio.pause();
+      musicToggle.textContent = '🎵';
+      musicToggle.style.boxShadow = '0 0 10px rgba(255, 255, 255, 0.5)';
+    } else {
+      currentAudio.play();
+      musicToggle.textContent = '🔇';
+      musicToggle.style.boxShadow = '0 0 15px rgba(255, 255, 255, 1)';
+    }
+    isMusicPlaying = !isMusicPlaying;
+  });
+  
+  // Switch between tracks
+  switchMusic.addEventListener('click', function() {
+    // Pause current track
+    currentAudio.pause();
+    currentAudio.currentTime = 0;
+    
+    // Switch tracks
+    if (currentTrack === 'Bad') {
+      currentTrack = 'Beat It';
+      currentAudio = beatItMusic;
+      trackName.textContent = 'Beat It';
+      // Flash animation 
+      switchMusic.classList.add('flash-animation');
+      setTimeout(() => switchMusic.classList.remove('flash-animation'), 700);
+    } else {
+      currentTrack = 'Bad';
+      currentAudio = badMusic;
+      trackName.textContent = 'Bad';
+    }
+    
+    // Start new track if music was playing
+    if (isMusicPlaying) {
+      currentAudio.play();
+    }
+    
+    // Show a dramatic MJ sound bubble when changing tracks
+    const soundBubble = document.createElement('div');
+    soundBubble.className = 'sound-bubble';
+    soundBubble.style.fontSize = '30px';
+    soundBubble.textContent = currentTrack === 'Bad' ? "Who's BAD!" : "Just BEAT IT!";
+    soundBubble.style.left = '50%';
+    soundBubble.style.top = '40%';
+    soundBubble.style.transform = 'translate(-50%, -50%)';
+    document.body.appendChild(soundBubble);
+    
+    // Remove bubble after animation
+    setTimeout(() => {
+      document.body.removeChild(soundBubble);
+    }, 2000);
+  });
+
+  // Start music when game starts
+  const startButton = document.getElementById('start-button');
+  if (startButton) {
+    startButton.addEventListener('click', function() {
+      if (!isMusicPlaying) {
+        setTimeout(() => {
+          currentAudio.play();
+          musicToggle.textContent = '🔇';
+          musicToggle.style.boxShadow = '0 0 15px rgba(255, 255, 255, 1)';
+          isMusicPlaying = true;
+          
+          // Add MJ welcome message
+          const welcomeMessage = document.createElement('div');
+          welcomeMessage.className = 'sound-bubble';
+          welcomeMessage.textContent = "Let's DANCE!";
+          welcomeMessage.style.left = '50%';
+          welcomeMessage.style.top = '50%';
+          welcomeMessage.style.transform = 'translate(-50%, -50%)';
+          welcomeMessage.style.fontSize = '36px';
+          document.body.appendChild(welcomeMessage);
+          
+          // Remove message after animation
+          setTimeout(() => {
+            document.body.removeChild(welcomeMessage);
+          }, 2000);
+        }, 500);
+      }
+    });
+  }
+
+  // MJ dance animation on good score
+  const score = document.getElementById('score');
+  const mjIndicator = document.getElementById('mj-indicator');
+  
+  if (score && mjIndicator) {
+    let lastScore = 0;
+    
+    setInterval(() => {
+      const currentScore = parseInt(score.innerText);
+      
+      // Random glitter effect
+      if (Math.random() > 0.5) {
+        score.style.textShadow = '0 0 10px #fff, 0 0 20px red';
+        setTimeout(() => {
+          score.style.textShadow = '0 0 10px #fff';
+        }, 200);
+      }
+      
+      // MJ reactions when score changes
+      if (currentScore > lastScore) {
+        // Play one of MJ's iconic sounds when score increases
+        if (currentScore % 5 === 0) {
+          const sounds = ['Hee-Hee!', 'Shamone!', 'Ow!', 'Woo!'];
+          const randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+          
+          // Create and show sound bubble
+          const soundBubble = document.createElement('div');
+          soundBubble.className = 'sound-bubble';
+          soundBubble.textContent = randomSound;
+          soundBubble.style.left = Math.random() * 80 + 10 + '%';
+          document.body.appendChild(soundBubble);
+          
+          // Remove bubble after animation
+          setTimeout(() => {
+            document.body.removeChild(soundBubble);
+          }, 2000);
+          
+          // Change dancer emoji for a moment
+          mjIndicator.textContent = '👑';
+          mjIndicator.style.fontSize = '40px';
+          setTimeout(() => {
+            mjIndicator.textContent = '🕺';
+            mjIndicator.style.fontSize = '30px';
+          }, 1000);
+        }
+        
+        lastScore = currentScore;
+      }
+    }, 100);
+  }
+});
 let game = new Game();

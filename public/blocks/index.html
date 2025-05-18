@@ -2,27 +2,46 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Blocks</title>
+  <title>MJ Blocks</title>
   <link rel="stylesheet" href="./style.css">
-
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
 </head>
 <body>
 <!-- partial:index.partial.html -->
 <meta name="viewport" content="width=device-width,user-scalable=no">
+<div class="music-container">
+  <audio id="bg-music" loop>
+    <source src="../audio/Bad.mp3" type="audio/mpeg" data-title="Bad">
+  </audio>
+  <audio id="beat-it-music" loop>
+    <source src="../audio/Beat_It.mp3" type="audio/mpeg" data-title="Beat It">
+  </audio>
+  <div id="music-controls">
+    <button id="toggle-music" title="Toggle MJ Music">🎵</button>
+    <button id="switch-music" title="Switch MJ Track">🔄</button>
+    <span id="track-name">Bad</span>
+  </div>
+</div>
+<div class="mj-header">
+  <img src="../img/logo.png" alt="MJ Logo" class="mj-logo">
+  <span>THE KING OF POP EXPERIENCE</span>
+</div>
 
 <div id="container">
 	<div id="game"></div>
 	<div id="score">0</div>
-	<div id="instructions">Click (or press the spacebar) to place the block</div>
+	<h1 class="game-title">MJ BLOCK THRILLER</h1>
+	<div id="instructions">SHOW YOUR BAD MOVES! Click (or press spacebar) to stack!</div>
 	<div class="game-over">
-		<h2>Game Over</h2>
-		<p>You did great, you're the best.</p>
-		<p>Click or use spacebar to start again</p>
+		<h2>WHO'S BAD?</h2>
+		<p>You're DANGEROUS good! The King of Pop would be proud!</p>
+		<p>HEAL THE WORLD and start again!</p>
 	</div>
 	<div class="game-ready">
-		<div id="start-button">Start</div>
-		<div></div>
+		<div id="start-button">BEAT IT!</div>
+		<div class="mj-quote">"I'm starting with the man in the mirror" - MJ</div>
 	</div>
+	<div class="mj-indicator" id="mj-indicator">🕺</div>
 </div>
 <!-- partial -->
 <script src='https://cdnjs.cloudflare.com/ajax/libs/three.js/r83/three.min.js'></script>

@@ -1,119 +1,148 @@
-const musicContainer = document.querySelector('.music-container');
-const playBtn = document.querySelector('#play');
-const prevBtn = document.querySelector('#prev');
-const nextBtn = document.querySelector('#next');
-const audio = document.querySelector('audio');
-const progress = document.querySelector('.progress');
-const progressContainer = document.querySelector('.progress-container');
-const title = document.querySelector('#title');
-const cover = document.querySelector('#cover');
+﻿document.addEventListener('DOMContentLoaded', function() {
+  const progress = document.getElementById('progress');
+  const song = document.getElementById('song');
+  const controlIcon = document.getElementById('controlIcon');
+  const playPauseButton = document.querySelector('.play-pause-btn');
+  const nextButton = document.querySelector('.controls button.forward');
+  const prevButton = document.querySelector('.controls button.backward');
+  const songName = document.querySelector('.music-player h1');
+  const artistName = document.querySelector('.music-player p');
 
-// Song titles
-const songs = [
-  {
-    title: 'Beat It',
-    source: '/audio/Beat_It.mp3',
-    image: '/img/beat_it.jpg'
-  },
-  {
-    title: 'This Is It',
-    source: '/audio/This_is_It.mp3',
-    image: '/img/this_is_it.jpg'
-  },
-  {
-    title: 'Dangerous',
-    source: '/audio/Dangerous.mp3',
-    image: '/img/smooth_criminal.jpg'
-  },
-  {
-    title: "They Don't Really Care About Us",
-    source: '/audio/TDRCAU.mp3',
-    image: '/img/TDRCAU.jpg'
-  }
-];
+  const songs = [
+    {
+      title: 'Beat It',
+      name: 'Michael Jackson',
+      source: '../audio/Beat_It.mp3',
+      image: '../img/beat_it.jpg'
+    },
+    {
+      title: 'Dangerous',
+      name: 'Michael Jackson',
+      source: '../audio/Dangerous.mp3',
+      image: '../img/smooth_criminal.jpg'
+    },
+    {
+      title: 'This Is It',
+      name: 'Michael Jackson',
+      source: '../audio/This_is_It.mp3',
+      image: '../img/this_is_it.jpg'
+    },
+    {
+      title: 'Smooth Criminal',
+      name: 'Michael Jackson',
+      source: '../audio/Smooth_criminal.mp3',
+      image: '../img/smooth_criminal.jpg'
+    },
+    {
+      title: 'They Don\'t Really Care About Us',
+      name: 'Michael Jackson',
+      source: '../audio/TDRCAU.mp3',
+      image: '../img/TDRCAU.jpg'
+    }
+  ];
 
-// Keep track of songs
-let songIndex = 0;
+  let currentSongIndex = 0;
+  let swiper;
 
-// Initially load song into DOM
-loadSong(songs[songIndex]);
-
-// Update song details
-function loadSong(song) {
-  title.innerText = song.title;
-  audio.src = song.source;
-  cover.src = song.image;
-}
-
-function playSong() {
-  musicContainer.classList.add("play");
-  playBtn.querySelector("i.fas").classList.remove("fa-play");
-  playBtn.querySelector("i.fas").classList.add("fa-pause");
-
-  audio.play();
-}
-
-function pauseSong() {
-  musicContainer.classList.remove("play");
-  playBtn.querySelector("i.fas").classList.add("fa-play");
-  playBtn.querySelector("i.fas").classList.remove("fa-pause");
-
-  audio.pause();
-}
-
-function prevSong() {
-  songIndex--;
-
-  if (songIndex < 0) {
-    songIndex = songs.length - 1;
+  function updateSongInfo() {
+    songName.textContent = songs[currentSongIndex].title;
+    artistName.textContent = songs[currentSongIndex].name;
+    song.src = songs[currentSongIndex].source;
   }
 
-  loadSong(songs[songIndex]);
-  playSong();
-}
-
-function nextSong() {
-  songIndex++;
-
-  if (songIndex > songs.length - 1) {
-    songIndex = 0;
+  function pauseSong() {
+    song.pause();
+    controlIcon.classList.remove('fa-pause');
+    controlIcon.classList.add('fa-play');
   }
 
-  loadSong(songs[songIndex]);
-  playSong();
-}
+  function playSong() {
+    song.play().catch(err => {
+      console.log('Error playing audio:', err.message);
+    });
+    controlIcon.classList.add('fa-pause');
+    controlIcon.classList.remove('fa-play');
+  }
 
-function updateProgress(e) {
-  const { duration, currentTime } = e.srcElement;
-  const progressPercent = (currentTime / duration) * 100;
-  progress.style.width = `${progressPercent}%`;
-}
+  function playPause() {
+    if (song.paused) {
+      playSong();
+    } else {
+      pauseSong();
+    }
+  }
 
-function setProgress(e) {
-  const width = this.clientWidth;
-  const clickX = e.offsetX;
-  const duration = audio.duration;
+  song.addEventListener('timeupdate', () => {
+    if (!song.paused) {
+      progress.value = song.currentTime;
+    }
+  });
 
-  audio.currentTime = (clickX / width) * duration;
-}
+  song.addEventListener('loadedmetadata', () => {
+    progress.max = song.duration;
+    progress.value = song.currentTime;
+  });
 
-// Event listeners
-playBtn.addEventListener("click", () => {
-  const isPlaying = musicContainer.classList.contains("play");
-
-  if (isPlaying) {
-    pauseSong();
-  } else {
+  song.addEventListener('ended', () => {
+    currentSongIndex = (currentSongIndex + 1) % songs.length;
+    updateSongInfo();
     playSong();
-  }
+    if (swiper) {
+      swiper.slideTo(currentSongIndex);
+    }
+  });
+
+  playPauseButton.addEventListener('click', playPause);
+
+  progress.addEventListener('input', () => {
+    song.currentTime = progress.value;
+  });
+
+  progress.addEventListener('change', () => {
+    playSong();
+  });
+
+  nextButton.addEventListener('click', () => {
+    currentSongIndex = (currentSongIndex + 1) % songs.length;
+    updateSongInfo();
+    playPause();
+    if (swiper) {
+      swiper.slideTo(currentSongIndex);
+    }
+  });
+
+  prevButton.addEventListener('click', () => {
+    currentSongIndex = (currentSongIndex - 1 + songs.length) % songs.length;
+    updateSongInfo();
+    playPause();
+    if (swiper) {
+      swiper.slideTo(currentSongIndex);
+    }
+  });
+
+  // Initialize the first song
+  updateSongInfo();
+
+  // Initialize Swiper
+  swiper = new Swiper('.swiper', {
+    effect: 'coverflow',
+    centeredSlides: true,
+    initialSlide: 0,
+    slidesPerView: 'auto',
+    grabCursor: true,
+    spaceBetween: 40,
+    coverflowEffect: {
+      rotate: 25,
+      stretch: 0,
+      depth: 50,
+      modifier: 1,
+      slideShadows: false,
+    }
+  });
+
+  swiper.on('slideChange', () => {
+    currentSongIndex = swiper.activeIndex;
+    updateSongInfo();
+    playPause();
+  });
 });
-
-// Change song events
-prevBtn.addEventListener("click", prevSong);
-nextBtn.addEventListener("click", nextSong);
-
-audio.addEventListener("timeupdate", updateProgress);
-
-progressContainer.addEventListener("click", setProgress);
-
-audio.addEventListener("ended", nextSong);

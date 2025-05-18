@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>THRILLGUESSER - MJ Number Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Russo+One&family=Teko:wght@400;700&family=Train+One&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Background Elements -->
+  <div class="stars-container">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>
+  </div>
+  
+  <div class="moonwalker-silhouette">
+    <div class="hat"></div>
+    <div class="body"></div>
+    <div class="legs"></div>
+  </div>
+
+  <div class="glow-container"></div>
+  
+  <!-- Main Content -->
+  <main class="game-container">
+    <header class="game-header">
+      <h1 class="title">THRILL<span class="title-accent">GUESSER</span></h1>
+      <div class="subtitle">THE NUMBER GAME THAT'LL MAKE YOU WANNA SCREAM</div>
+    </header>
+
+    <div class="game-levels">
+      <div class="level-switch">
+        <div class="level-option" data-level="easy">EASY</div>
+        <div class="level-option active" data-level="medium">MEDIUM</div>
+        <div class="level-option" data-level="hard">DANGEROUS</div>
+      </div>
+    </div>
+
+    <div class="game-instructions shown">
+      <div class="instructions-text">
+        <span class="highlight">I'm thinking of a number...</span><br>
+        Medium level: 1-50 with 10 attempts<br>
+        <span class="shine-text">Are you BAD enough to guess it?</span>
+      </div>
+      <button id="start-btn" class="neon-btn">START THE THRILL</button>
+    </div>
+    
+    <div class="game-play hidden">
+      <div class="game-status">
+        <div class="status-item">
+          <div class="status-label">ATTEMPTS</div>
+          <div class="status-value attempts">10</div>
+        </div>
+        <div class="status-item">
+          <div class="status-label">RANGE</div>
+          <div class="status-value range">1-50</div>
+        </div>
+      </div>
+
+      <div class="glove-container">
+        <div class="glove"></div>
+        <div class="input-container">
+          <input type="number" id="guess-input" min="1" max="100" placeholder="?" autofocus>
+          <button id="guess-btn">GUESS</button>
+        </div>
+      </div>
+
+      <div class="hint-display">
+        <div class="hint-text">Make your first guess to start the thriller...</div>
+      </div>
+      
+      <div class="history-container">
+        <h3 class="history-title">GUESS HISTORY</h3>
+        <div class="guess-history"></div>
+      </div>
+    </div>
+
+    <div id="result-modal" class="hidden">
+      <div class="modal-content">
+        <h2 id="result-title"></h2>
+        <p id="result-message"></p>
+        <div class="lights-animation">
+          <div class="light"></div>
+          <div class="light"></div>
+          <div class="light"></div>
+          <div class="light"></div>
+          <div class="light"></div>
+        </div>
+        <button id="play-again-btn" class="neon-btn">PLAY AGAIN</button>
+      </div>
+    </div>
+    
+    <div class="sound-control">
+      <button id="sound-toggle" aria-label="Toggle sound">
+        <div class="sound-icon">🎵</div>
+      </button>
+      <div class="song-title">THRILLER</div>
+    </div>
+  </main>
+
+  <footer class="game-footer">
+    <a href="/gamebar" class="back-btn">BACK TO GAME BAR</a>
+    <div class="credits">© THE MJ EXPERIENCE</div>
+  </footer>
+  <audio id="bg-music" loop>
+    <source src="../audio/TDRCAU.mp3" type="audio/mp3">
+  </audio>
+  <audio id="guess-sound">
+    <source src="./sounds/guess.mp3" type="audio/mp3">
+  </audio>
+  <audio id="win-sound">
+    <source src="./sounds/win.mp3" type="audio/mp3">
+  </audio>
+  <audio id="lose-sound">
+    <source src="./sounds/lose.mp3" type="audio/mp3">
+  </audio>
+  <audio id="hint-sound">
+    <source src="./sounds/hint.mp3" type="audio/mp3">
+  </audio>
+
+  <script src="script.js"></script>
+</body>
+</html>

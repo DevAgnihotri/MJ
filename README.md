@@ -1,6 +1,7 @@
-# Award Winning Website
+# Outlier AI Hackathon Project
 
 This project includes a collection of interactive mini-games and features, including:
+
 - MJ Music Player
 - AI Roller
 - Blocks Game

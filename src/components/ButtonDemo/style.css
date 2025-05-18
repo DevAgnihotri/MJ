@@ -141,3 +141,31 @@ a span:nth-child(4){
   color: #ffeb3b !important;
   box-shadow: 0 0 20px #ff512f, 0 0 60px #dd2476;
 }
+
+/* New Game Bar Button Styles */
+
+/* Button Color Filters */
+a:nth-child(4){
+	filter: hue-rotate(0deg); /* Red for Moonwalk */
+}
+
+a:nth-child(5){
+	filter: hue-rotate(270deg); /* Purple for Rock Paper Scissors */
+}
+
+a:nth-child(6){
+	filter: hue-rotate(290deg); /* Violet for AI-Roller */
+}
+
+a:nth-child(7){
+	filter: hue-rotate(30deg); /* Orange for Speed Analysis */
+}
+
+a:nth-child(8){
+	filter: hue-rotate(180deg); /* Blue for Colorful Memory Game */
+}
+
+a:nth-child(9){
+	filter: hue-rotate(320deg); /* Pink for MJ Music Player */
+}
+
