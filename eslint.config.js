@@ -1,3 +1,5 @@
+// ESLint config for Outlier AI Hackathon Project - updated May 2025
+// For more info, see README.md
 import js from "@eslint/js";
 import globals from "globals";
 import react from "eslint-plugin-react";

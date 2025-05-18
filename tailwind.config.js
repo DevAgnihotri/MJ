@@ -1,3 +1,5 @@
+// Tailwind config for Outlier AI Hackathon Project - updated May 2025
+// For more info, see README.md
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
