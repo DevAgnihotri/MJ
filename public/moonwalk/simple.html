@@ -107,14 +107,16 @@
   }
   </style>
 </head>
-<body>
-  <div class="container">
+<body>  <div class="container">
     <div class="title">MJ MOONWALK EXPERIENCE</div>
     <div class="character" id="mj"></div>
     <div class="floor"></div>
     <div class="controls">
       <button id="moonwalkBtn">MOONWALK</button>
       <button id="stopBtn">STOP</button>
+    </div>
+    <div class="info" style="margin-top: 20px; font-size: 14px; opacity: 0.8;">
+      This is a simplified version. <a href="index.html" style="color: #1eff14; text-decoration: none;">Try the main version</a> for the full experience.
     </div>
   </div>
 
@@ -165,11 +167,48 @@
         music.pause();
         clearInterval(sparkleInterval);
       });
-      
-      // Stop music when it ends
+        // Stop music when it ends
       music.addEventListener('ended', function() {
         character.classList.remove('moonwalking');
         clearInterval(sparkleInterval);
+      });
+      
+      // Add keyboard controls
+      document.addEventListener('keydown', function(event) {
+        // Space bar to toggle moonwalk
+        if (event.keyCode === 32) {
+          if (character.classList.contains('moonwalking')) {
+            stopBtn.click();
+          } else {
+            moonwalkBtn.click();
+          }
+          event.preventDefault();
+        }
+      });
+      
+      // Check if audio file exists
+      music.addEventListener('error', function() {
+        console.warn('Could not load Smooth Criminal music file');
+        // Try alternative audio sources
+        const alternateFiles = [
+          'MoonwalkDefault.mp3',
+          'AudioDashDefault.mp3',
+          '../audio/Beat_It.mp3',
+          '../audio/Dangerous.mp3',
+          '../audio/This_is_It.mp3'
+        ];
+        
+        let attempted = 0;
+        function tryNextFile() {
+          if (attempted < alternateFiles.length) {
+            console.log('Trying alternate audio file: ' + alternateFiles[attempted]);
+            music.src = alternateFiles[attempted];
+            attempted++;
+          }
+        }
+        
+        music.addEventListener('error', tryNextFile);
+        tryNextFile();
       });
     });
   </script>

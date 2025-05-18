@@ -1,35 +1,38 @@
 // Audio configuration for moonwalk application
-let audioContext;
+// Initialize game namespace if not already done
+window.moonwalkGame = window.moonwalkGame || {};
+const game = window.moonwalkGame;
+
+// Initialize audio context
 try {
-  audioContext = new (window.AudioContext || window.webkitAudioContext)();
-  window.audioContext = audioContext;
+  game.audioContext = new (window.AudioContext || window.webkitAudioContext)();
 } catch (e) {
   console.error('Web Audio API not supported:', e);
-  audioContext = null;
+  game.audioContext = null;
 }
 
-let buffer = null;
+game.buffer = null;
 
 // Create a global function to set up audio
-window.setupAudio = function(audioElement, audioCtx) {
-  window.audio = audioElement;
+game.setupAudio = function(audioElement, audioCtx) {
+  game.audio = audioElement;
   
   if (audioCtx) {
-    window.audioContext = audioCtx;
+    game.audioContext = audioCtx;
   }
   
   // Set default values
-  if (window.audio) {
-    window.audio.volume = window.options && window.options.volume ? window.options.volume : 0.7;
-    window.audio.loop = false;
+  if (game.audio) {
+    game.audio.volume = game.options && game.options.volume ? game.options.volume : 0.7;
+    game.audio.loop = false;
   }
   
   console.log('Audio setup complete');
-  return window.audio;
+  return game.audio;
 };
 
 // Function to load audio with fallbacks
-window.loadGameAudio = function(primarySrc, fallbackSrc) {
+game.loadGameAudio = function(primarySrc, fallbackSrc) {
   return new Promise((resolve, reject) => {
     const audioElement = new Audio();
     let loadAttempts = 0;
@@ -45,17 +48,17 @@ window.loadGameAudio = function(primarySrc, fallbackSrc) {
     audioElement.addEventListener('canplaythrough', function onCanPlay() {
       console.log('Audio loaded successfully');
       
-      if (window.audioContext) {
+      if (game.audioContext) {
         try {
-          const source = window.audioContext.createMediaElementSource(audioElement);
-          source.connect(window.audioContext.destination);
+          const source = game.audioContext.createMediaElementSource(audioElement);
+          source.connect(game.audioContext.destination);
         } catch (e) {
           console.warn('Error connecting audio to context:', e);
           // Continue anyway since we can still play the audio
         }
       }
       
-      window.setupAudio(audioElement, window.audioContext);
+      game.setupAudio(audioElement, game.audioContext);
       audioElement.removeEventListener('canplaythrough', onCanPlay);
       resolve(audioElement);
     });
@@ -81,17 +84,29 @@ window.loadGameAudio = function(primarySrc, fallbackSrc) {
   });
 };
 
+// Make these functions available globally for backward compatibility
+window.setupAudio = game.setupAudio;
+window.loadGameAudio = game.loadGameAudio;
+
 // Default to use the included audio file
 window.addEventListener('load', function() {
-  window.loadGameAudio('AudioDashDefault.mp3', 'MoonwalkDefault.mp3')
+  game.loadGameAudio('AudioDashDefault.mp3', 'MoonwalkDefault.mp3')
     .then(audio => {
-      window.defaultAudio = audio;
+      game.defaultAudio = audio;
       console.log('Default audio loaded successfully');
+      
+      // Also set window.audio for backward compatibility
+      window.audio = audio;
+      window.defaultAudio = audio;
     })
     .catch(err => {
       console.error('Could not load any audio:', err);
       // Create dummy audio element as fallback
-      window.defaultAudio = new Audio();
-      window.audio = window.defaultAudio;
+      game.defaultAudio = new Audio();
+      game.audio = game.defaultAudio;
+      
+      // Also set window.audio for backward compatibility
+      window.audio = game.defaultAudio;
+      window.defaultAudio = game.defaultAudio;
     });
 });

@@ -1,99 +1,161 @@
+/**
+ * Moonwalk Game Initialization Script
+ * Handles the initialization and bootstrapping of the moonwalk game
+ */
+
+// Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', function() {
   console.log('Moonwalk game initializing...');
   
-  // Wait a short time for all scripts to load and process
-  setTimeout(function() {
-    // Try different initialization methods in order of preference
-    
-    // Method 1: Use the setupMoonwalkGame function from main-browser.js
-    if (window.setupMoonwalkGame && typeof window.setupMoonwalkGame === 'function') {
-      console.log('Starting moonwalk game using setupMoonwalkGame function');
-      try {
-        window.setupMoonwalkGame();
-        return;
-      } catch (e) {
-        console.error('Error in setupMoonwalkGame:', e);
-      }
-    }
-    
-    // Method 2: Use the global initGame function
-    if (window.initGame && typeof window.initGame === 'function') {
-      console.log('Starting moonwalk game using global initGame function');
-      try {
-        window.initGame();
-        return;
-      } catch (e) {
-        console.error('Error in initGame:', e);
-      }
-    }
-    
-    // Method 3: Use the gameInit function from init.js
-    if (window.gameInit && typeof window.gameInit === 'function') {
-      console.log('Starting moonwalk game using gameInit function');
-      try {
-        window.gameInit();
-        return;
-      } catch (e) {
-        console.error('Error in gameInit:', e);
-      }
-    }
-    
-    // Fallback initialization
-    console.log('Using fallback game initialization');
-    
-    // Initialize Kontra framework with the canvas if it exists
-    if (typeof kontra !== 'undefined' && kontra.init) {
-      kontra.init();
+  // Initialize game namespace
+  window.moonwalkGame = window.moonwalkGame || {};
+  const game = window.moonwalkGame;
+  game.initialized = false;
+  
+  // Track initialization attempts
+  let initAttempts = 0;
+  const maxAttempts = 3;
+  
+  // Main initialization function
+  function initGame() {
+    try {
+      initAttempts++;
+      console.log(`Initializing Moonwalk game (attempt ${initAttempts})...`);
       
-      // Define global variables if not already defined
-      if (!window.audio) {
-        if (window.loadGameAudio && typeof window.loadGameAudio === 'function') {
-          window.loadGameAudio('AudioDashDefault.mp3', 'MoonwalkDefault.mp3');
-        } else {
-          window.audio = new Audio('AudioDashDefault.mp3');
-        }
+      // Make sure Kontra exists
+      if (typeof window.kontra === 'undefined') {
+        throw new Error('Kontra framework not found');
       }
       
-      // Start the game loop if exists
-      if (typeof kontra.gameLoop === 'function') {
-        const loop = kontra.gameLoop({
-          update: function() {
-            // Update all active scenes
-            if (window.scenes) {
-              window.scenes.forEach(scene => {
-                if (scene.active && typeof scene.update === 'function') scene.update();
-              });
-            }
-          },
-          render: function() {
-            // Render all active scenes
-            if (window.scenes) {
-              window.scenes.forEach(scene => {
-                if (scene.active && typeof scene.render === 'function') scene.render();
-              });
-            }
+      // Initialize Kontra with the canvas
+      try {
+        window.kontra.init();
+        console.log('Kontra initialized with canvas');
+      } catch (e) {
+        console.warn('Note: Kontra may already be initialized');
+      }
+      
+      // Initialize global variables
+      if (typeof game.ctx === 'undefined' && window.kontra.context) {
+        game.ctx = window.kontra.context;
+      }
+      
+      // Make sure we have a canvas and context
+      if (!window.kontra.canvas || !window.kontra.context) {
+        throw new Error('Canvas or context not available');
+      }
+      
+      // Create game loop
+      game.loop = window.kontra.gameLoop({
+        update: function(dt) {
+          // Update active scenes
+          if (window.scenes && Array.isArray(window.scenes)) {
+            window.scenes.forEach(scene => {
+              if (scene && scene.active && typeof scene.update === 'function') {
+                scene.update(dt);
+              }
+            });
           }
-        });
-        
-        // Start the game loop
-        if (!loop.isStopped) {
-          loop.stop();
+        },
+        render: function() {
+          // Clear canvas
+          if (window.kontra.context) {
+            window.kontra.context.clearRect(0, 0, window.kontra.canvas.width, window.kontra.canvas.height);
+          }
+          
+          // Render active scenes
+          if (window.scenes && Array.isArray(window.scenes)) {
+            window.scenes.forEach(scene => {
+              if (scene && scene.active && typeof scene.render === 'function') {
+                scene.render();
+              }
+            });
+          }
         }
-        loop.start();
+      });
+      
+      // Start game loop
+      if (game.loop && game.loop.isStopped) {
+        console.log('Starting game loop');
+        game.loop.start();
       }
       
-      // Initialize any menus if they exist
-      if (window.menuScene && typeof window.menuScene.show === 'function') {
-        console.log('Showing menu scene');
-        setTimeout(() => window.menuScene.show(), 500);
-      } else if (window.loadingScene && typeof window.loadingScene.show === 'function') {
-        console.log('Showing loading scene');
-        window.loadingScene.show();
+      console.log('Initializing audio...');
+      
+      // Initialize audio with fallbacks
+      if (!game.audio) {
+        if (typeof game.loadGameAudio === 'function') {
+          game.loadGameAudio('AudioDashDefault.mp3', 'MoonwalkDefault.mp3')
+            .then(function(audio) {
+              game.audio = audio;
+              initializeScenes();
+            })
+            .catch(function(err) {
+              console.error('Error loading audio:', err);
+              initializeScenes();  // Continue without audio
+            });
+        } else {
+          // Simple audio initialization
+          game.audio = new Audio('AudioDashDefault.mp3');
+          game.audio.addEventListener('error', function() {
+            game.audio.src = 'MoonwalkDefault.mp3';
+          });
+          initializeScenes();
+        }
+      } else {
+        initializeScenes();
       }
-    } else {
-      // If kontra framework isn't available, direct to simple version
-      console.error('Game framework not found, redirecting to simple version');
-      window.location.href = 'simple.html';
+      
+      // Mark as initialized
+      game.initialized = true;
+      return true;
+      
+    } catch (error) {
+      console.error('Error during game initialization:', error);
+      
+      // Try again if we haven't reached max attempts
+      if (initAttempts < maxAttempts) {
+        console.log(`Retrying initialization in 500ms (attempt ${initAttempts + 1}/${maxAttempts})...`);
+        setTimeout(initGame, 500);
+        return false;
+      } else {
+        // Give up and redirect to simple version
+        console.error('Failed to initialize game after multiple attempts');
+        setTimeout(function() {
+          window.location.href = 'simple.html';
+        }, 1000);
+        return false;
+      }
     }
-  }, 500);
+  }
+  
+  // Initialize game scenes
+  function initializeScenes() {
+    console.log('Initializing scenes...');
+    
+    // Show loading scene first
+    if (window.loadingScene && typeof window.loadingScene.show === 'function') {
+      window.loadingScene.show();
+      
+      // Give some time for assets to load, then show menu
+      setTimeout(function() {
+        window.loadingScene.hide();
+        if (window.menuScene && typeof window.menuScene.show === 'function') {
+          window.menuScene.show();
+        }
+      }, 2000);
+    } 
+    // Directly show menu if no loading scene
+    else if (window.menuScene && typeof window.menuScene.show === 'function') {
+      window.menuScene.show();
+    }
+    
+    console.log('Moonwalk game initialization complete!');
+    
+    // Flag that game is running
+    window.gameRunning = true;
+  }
+  
+  // Start initialization after a short delay
+  setTimeout(initGame, 500);
 });
