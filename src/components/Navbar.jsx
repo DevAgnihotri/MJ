@@ -125,6 +125,8 @@ const NavBar = () => {
                       key={index}
                       href="/PMD-clock/index.html"
                       className="nav-hover-btn cursor-pointer"
+                      target="_blank"
+                      rel="noopener noreferrer"
                     >
                       {item}
                     </a>
