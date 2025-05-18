@@ -1,34 +1,58 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8" />
+  <head>    <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
-    <title>Pomodoro Clock</title>
-    <meta name="description" content="A Pomodoro Clock" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>PMD - Perpetual MJ Dance Clock</title>
+    <meta name="description" content="A Michael Jackson themed productivity clock" />
+    <meta name="author" content="Dev Agnihotri" />    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <link rel="stylesheet" href="style.css" media="screen" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="dance-animations.css" media="screen" />
+  </head>  <body>
+    <audio id="bgMusic" loop>
+      <source src="../audio/Beat_It.mp3" type="audio/mpeg">
+    </audio>
+    <!-- Sound effects -->
+    <audio id="heeHeeSound">
+      <source src="../audio/hee-hee.mp3" type="audio/mpeg">
+    </audio>
+    <audio id="beep" class="hidden">
+      <source src="../audio/mj-whoosh.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="container">
+    <header>
+      <h1 class="mj-title">PMD: Perpetual MJ Dance Clock</h1>
+      <div class="home-nav">
+        <a href="/" class="back-link">← Back to MJ Hub</a>
+      </div>
+    </header>
     <main id="clock" class="content">
-      <label id="timer-label">Session</label>
+      <label id="timer-label">MJ Dance Session</label>
       <h1 id="display"><span id="time-left">25:00</span></h1>
       <div id="panel" class="buttons">
-        <div id="session" class="control">
-          <label id="session-label">Session Length</label>
+        <div id="session" class="control">          <label id="session-label">Dance Length (min)</label>
           <button id="session-decrement" class="addition button" value="-" data-key="ArrowDown">–</button>
           <span id="session-length" class="duration">25</span>
           <button id="session-increment" class="addition button" value="+" data-key="ArrowUp">+</button>
         </div>
         <div id="break" class="control">
-          <label id="break-label">Break Length</label>
+          <label id="break-label">Moonwalk Break (min)</label>
           <button id="break-decrement" class="addition button" value="-" data-key="ArrowLeft">–</button>
           <span id="break-length" class="duration">5</span>
           <button id="break-increment" class="addition button" value="+" data-key="ArrowRight">+</button>
-        </div>
-        <div id="timer" class="control">
-          <button id="start_stop" class="start button" value="start" data-key=" ">Start</button>
+        </div>        <div id="timer" class="control">
+          <button id="start_stop" class="start button" value="start" data-key=" ">Beat It!</button>
           <button id="reset" class="reset button" value="reset" data-key="Control">Reset</button>
-        </div>      </div>    </main>
+        </div>      
+      </div>    
+    </main>
+    <div class="music-controls">
+      <button id="toggleMusic" onclick="toggleBackgroundMusic()">🎵 Play MJ Music</button>
+    </div>    <footer>
+      <p>Created by <a href="https://github.com/DevAgnihotri/MJ" target="_blank">Dev Agnihotri</a> | OutlierAI Hackathon Project</p>
+      <p><a href="/" class="home-link">Back to MJ Hub</a></p>
+    </footer>
+    </div> <!-- end container -->
     <!-- Break sound -->
     <audio id="beep" src="../audio/loop.mp3" type="audio/mpeg" preload="auto"></audio>
     

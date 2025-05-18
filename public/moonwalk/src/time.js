@@ -41,7 +41,7 @@ function getMilliseconds(time) {
  * Get the best time for the song.
  */
 export function getBestTime() {
-  bestTimes = window.kontra.store.get('audio-dash:best') || {};
+  bestTimes = window.kontra.store.get('moonwalk:best') || {};
   bestTime = bestTimes[songName] || '0:00';
 }
 
@@ -52,7 +52,7 @@ function setBestTime() {
   if (isBetterTime(audio.currentTime)) {
     bestTime = getTime(audio.currentTime);
     bestTimes[songName] = bestTime;
-    kontra.store.set('audio-dash:best', bestTimes);
+    kontra.store.set('moonwalk:best', bestTimes);
   }
 }
 

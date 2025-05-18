@@ -1,137 +1,51 @@
-// ship.js - Ship object for Moonwalk game
-// This handles the player's ship behavior
+// ship.js - Player ship logic for Moonwalk game
 
-// Initialize game namespace
-window.moonwalkGame = window.moonwalkGame || {};
-const game = window.moonwalkGame;
-
-// Ship constructor
-function createShip() {
-  // Make sure kontra is available
-  if (!window.kontra) {
-    console.error('Kontra not available for ship creation');
-    return null;
-  }
-  
-  // Get canvas height (for positioning)
-  const canvas = window.kontra.canvas;
-  const ctx = window.kontra.context;
-  
-  if (!canvas || !ctx) {
-    console.error('Canvas or context not available');
-    return null;
-  }
-  
-  // Calculate midpoint for ship positioning
-  const mid = canvas.height / 2;
-  
-  // Create the ship object
-  const ship = {
-    // Ship properties
-    x: canvas.width / 2,
-    y: mid,
+// Ship class extending kontra.sprite
+const createShip = (x, y) => {
+  return kontra.sprite({
+    x: x || kontra.canvas.width / 2,
+    y: y || kontra.canvas.height - 50,
     width: 20,
     height: 20,
-    speed: 10,
-    color: '#1eff14', // Neon green color
-    direction: 1,  // 1 = down, -1 = up
-    points: [],    // Trail points
-    maxTrailLength: 10,
+    color: 'white',
+    dx: 0,
+    speed: 3,
     
-    // Toggle the ship's position (above/below the line)
-    toggle: function() {
-      this.direction *= -1;
-      
-      // Add current position to points trail
-      this.addPoint();
-    },
-    
-    // Add current position to points trail
-    addPoint: function() {
-      this.points.push({
-        x: this.x,
-        y: this.y
-      });
-      
-      // Limit trail length
-      if (this.points.length > this.maxTrailLength) {
-        this.points.shift();
-      }
-    },
-    
-    // Update ship position
-    update: function(dt) {
-      // Move the ship based on direction and speed
-      if (this.direction === 1 && this.y < mid + 100) {
-        this.y += this.speed;
-      } else if (this.direction === -1 && this.y > mid - 100) {
-        this.y -= this.speed;
+    // Update the ship position
+    update() {
+      // Handle input
+      if (kontra.keys.pressed('left')) {
+        this.dx = -this.speed;
+      } 
+      else if (kontra.keys.pressed('right')) {
+        this.dx = this.speed;
+      } 
+      else {
+        this.dx = 0;
       }
       
-      // Add points to trail occasionally
-      if (Math.random() < 0.1) {
-        this.addPoint();
+      // Update position
+      this.x += this.dx;
+      
+      // Keep ship within bounds
+      if (this.x < 0) {
+        this.x = 0;
+      } 
+      else if (this.x + this.width > kontra.canvas.width) {
+        this.x = kontra.canvas.width - this.width;
       }
     },
     
     // Draw the ship
-    render: function() {
-      if (!ctx) return;
+    render() {
+      this.context.fillStyle = this.color;
+      this.context.fillRect(this.x, this.y, this.width, this.height);
       
-      // Draw trail
-      if (this.points.length > 1) {
-        ctx.beginPath();
-        ctx.moveTo(this.points[0].x, this.points[0].y);
-        
-        for (let i = 1; i < this.points.length; i++) {
-          ctx.lineTo(this.points[i].x, this.points[i].y);
-        }
-        
-        ctx.lineTo(this.x, this.y);
-        ctx.strokeStyle = 'rgba(30, 255, 20, 0.5)';
-        ctx.lineWidth = 2;
-        ctx.stroke();
-      }
-      
-      // Draw ship
-      ctx.fillStyle = this.color;
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, 10, 0, Math.PI * 2);
-      ctx.fill();
-      
-      // Draw direction indicator
-      ctx.beginPath();
-      ctx.moveTo(this.x, this.y);
-      ctx.lineTo(this.x + 15, this.y + (this.direction * 10));
-      ctx.strokeStyle = this.color;
-      ctx.lineWidth = 3;
-      ctx.stroke();
-    },
-    
-    // Check collision with wave bar
-    checkCollision: function(barX, barY, barWidth, barHeight) {
-      // Simple bounding box collision
-      return (
-        this.x < barX + barWidth &&
-        this.x + this.width > barX &&
-        this.y < barY + barHeight &&
-        this.y + this.height > barY
-      );
+      // Draw ship details
+      this.context.fillRect(this.x + this.width / 2 - 5, this.y - 5, 10, 5);
     }
-  };
-  
-  return ship;
-}
+  });
+};
 
-// Create ship and add to game namespace
-game.createShip = createShip;
-
-// Create ship instance when document is ready
-document.addEventListener('DOMContentLoaded', function() {
-  setTimeout(function() {
-    game.ship = createShip();
-    
-    // Make ship available globally for backward compatibility
-    window.ship = game.ship;
-  }, 500);
-});
+// Export functions
+export { createShip };

@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 import Button from "./Button";
 
-const navItems = ["Game HUB", "Github", "Read Me", "404", "to play song ->"];
+const navItems = ["Game HUB", "Github","404", "PMD", "to play song ->"];
 
 const NavBar = () => {
   // State for toggling audio and visual indicator
@@ -70,45 +70,77 @@ const NavBar = () => {
       className="fixed inset-x-0 top-4 z-50 h-16 border-none transition-all duration-700 sm:inset-x-6"
     >
       <header className="absolute top-1/2 w-full -translate-y-1/2">
-        <nav className="flex size-full items-center justify-between p-4">
-          {/* Logo and Product button */}
+        <nav className="flex size-full items-center justify-between p-4">          {/* Logo and button */}
           <div className="flex items-center gap-7">
-            <img src="/img/logo.png" alt="logo" className="w-10" />
-
-            <Button
+            <img src="/img/logo.png" alt="logo" className="w-10" />            <Button
               id="product-button"
-              title="Products"
+              title="MOONWALK"
               rightIcon={<TiLocationArrow />}
               containerClass="bg-blue-50 md:flex hidden items-center justify-center gap-1"
+              onClick={() => navigate('/moonwalk')}
             />
           </div>
 
           {/* Navigation Links and Audio Button */}
           <div className="flex h-full items-center">
-            <div className="hidden md:block">
-              {navItems.map((item, index) =>
-                item === "Game HUB" ? (
-                  <a
-                    key={index}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      navigate("/gamebar");
-                    }}
-                    href="/gamebar"
-                    className="nav-hover-btn cursor-pointer"
-                  >
-                    {item}
-                  </a>
-                ) : (
-                  <a
-                    key={index}
-                    href={`#${item.toLowerCase()}`}
-                    className="nav-hover-btn"
-                  >
-                    {item}
-                  </a>
-                )
-              )}
+            <div className="hidden md:block">              {navItems.map((item, index) => {
+                // Handle different navigation items
+                if (item === "Game HUB") {
+                  return (
+                    <a
+                      key={index}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        navigate("/gamebar");
+                      }}
+                      href="/gamebar"
+                      className="nav-hover-btn cursor-pointer"
+                    >
+                      {item}
+                    </a>
+                  );
+                } else if (item === "404") {
+                  return (
+                    <a
+                      key={index}
+                      href="/404/index.html"
+                      className="nav-hover-btn cursor-pointer"
+                    >
+                      {item}
+                    </a>
+                  );                } else if (item === "Github") {
+                  return (
+                    <a
+                      key={index}
+                      href="https://github.com/DevAgnihotri/MJ"
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="nav-hover-btn cursor-pointer"
+                    >
+                      {item}
+                    </a>
+                  );                  } else if (item === "PMD") {
+                  return (
+                    <a
+                      key={index}
+                      href="/PMD-clock/index.html"
+                      className="nav-hover-btn cursor-pointer"
+                    >
+                      {item}
+                    </a>
+                  );
+                } else {
+                  return (
+                    <a
+                      key={index}
+                      href={`#${item.toLowerCase()}`}
+                      className="nav-hover-btn"
+                    >
+                      {item}
+                    </a>
+                  );
+                }
+              })}
             </div>
 
             <button

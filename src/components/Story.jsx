@@ -113,8 +113,9 @@ const FloatingImage = () => {
 
             <Button
               id="realm-btn"
-              title="Experience MJ Music"
+              title="MJ Music and Lyrics"
               containerClass="mt-5"
+              onClick={() => window.location.href = '/speed-analysis/speed_analysis.html'}
             />
           </div>
         </div>

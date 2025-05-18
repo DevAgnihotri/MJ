@@ -111,71 +111,105 @@ const Features = () => (
       </div>
 
       <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
-        <BentoCard
-          src="videos/feature-1.mp4"
-          title={
-            <>
-              Moo<b>n</b>walk
-            </>
-          }
-          description="A rhythm game app where you master MJ's iconic beats to win the game"
-          isComingSoon
-        />
+        <a
+          href="/moonwalk/index.html"
+          className="block size-full"
+          style={{ all: "unset", display: "block", height: "100%", width: "100%", cursor: "pointer" }}
+          tabIndex={0}
+        >
+          <BentoCard
+            src="videos/feature-1.mp4"
+            title={
+              <>
+                Moo<b>n</b>walk
+              </>
+            }
+            description="A rhythm game app where you master MJ's iconic beats to win the game"
+            isComingSoon
+          />
+        </a>
       </BentoTilt>
 
       <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
         <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
-          <BentoCard
-            src="videos/feature-2.mp4"
-            title={
-              <>
-                Gl<b>o</b>ve Cam
-              </>
-            }
-            description="Snap photos and add MJ-inspired AR effects—sparkling gloves, hats, and more—to your selfies."
-            isComingSoon
-          />
+          <a
+            href="/404/index.html"
+            className="block size-full"
+            style={{ all: "unset", display: "block", height: "100%", width: "100%", cursor: "pointer" }}
+            tabIndex={0}
+          >
+            <BentoCard
+              src="videos/feature-2.mp4"
+              title={
+                <>
+                  Dance <b>H</b>ouse
+                </>
+              }
+              description="Step into the Dance House—watch avatars groove, join the party, and feel the MJ dance energy!"
+              isComingSoon
+            />
+          </a>
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_1 row-span-1 ms-32 md:col-span-1 md:ms-0">
-          <BentoCard
-            src="videos/feature-3.mp4"
-            title={
-              <>
-                Thrill<b>e</b>r Studio
-              </>
-            }
-            description="Create your own music videos with MJ's legendary tracks and share them with the world."
-            isComingSoon
-          />
+          <a
+            href="/color-palette-maker/index.html"
+            className="block size-full"
+            style={{ all: "unset", display: "block", height: "100%", width: "100%", cursor: "pointer" }}
+            tabIndex={0}
+          >
+            <BentoCard
+              src="videos/feature-3.mp4"
+              title={
+                <>
+                  Thrill<b>e</b>r Studio
+                </>
+              }
+              description="Mix MJ's legendary tracks with vibrant color palettes—create, play, and get inspired by music and color!"
+              isComingSoon
+            />
+          </a>
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
-          <BentoCard
-            src="videos/feature-4.mp4"
-            title={
-              <>
-                B<b>a</b>d Quiz
-              </>
-            }
-            description="Test your knowledge of Michael Jackson's life, music, and legacy in this fun trivia challenge."
-            isComingSoon
-          />
+          <a
+            href="/mj-number-game/index.html"
+            className="block size-full"
+            style={{ all: "unset", display: "block", height: "100%", width: "100%", cursor: "pointer" }}
+            tabIndex={0}
+          >
+            <BentoCard
+              src="videos/feature-4.mp4"
+              title={
+                <>
+                  B<b>a</b>d Guess
+                </>
+              }
+              description="Can you outsmart MJ? Play the number guessing game—pick wisely, get hints, and see if you can beat the King of Pop's mind!"
+              isComingSoon
+            />
+          </a>
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_2">
-          <div className="flex size-full flex-col justify-between bg-violet-300 p-5">
-            <h1 className="bento-title special-font max-w-64 text-black">
-              M<b>o</b>re MJ a<b>p</b>ps <b>a</b>v<b>a</b>il<b>b</b>e h<b>e</b>r<b>e</b>.
-            </h1>
-
-            <TiLocationArrow className="m-5 scale-[5] self-end" />
-          </div>
+          <a
+            href="/gamebar"
+            className="block size-full"
+            style={{ all: "unset", display: "block", height: "100%", width: "100%", cursor: "pointer" }}
+            tabIndex={0}
+          >
+            <div className="flex size-full flex-col justify-between bg-violet-300 p-5">
+              <h1 className="bento-title special-font max-w-64 text-black">
+                M<b>o</b>re MJ a<b>p</b>ps <b>a</b>v<b>a</b>il<b>b</b>e h<b>e</b>r<b>e</b>.
+              </h1>
+              <TiLocationArrow className="m-5 scale-[5] self-end" />
+            </div>
+          </a>
         </BentoTilt>
 
         <BentoTilt className="bento-tilt_2">
           <video
-            src="videos/feature-5.mp4"
+            src="videos/hero-1.mp4"
             loop
             muted
             autoPlay

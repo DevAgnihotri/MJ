@@ -1,14 +1,27 @@
 {
     "version":  "2.0.0",
     "license":  "MIT",
-    "name":  "audio-dash",
+    "name":  "moonwalk",
     "scripts":  {
-                    "start":  "http-server -o"
+                    "start":  "http-server -o",
+                    "build": "gulp build",
+                    "dev": "vite",
+                    "dist": "gulp dist"
                 },
     "private":  true,
     "author":  "Steven Lambert (updated by you)",
     "devDependencies":  {
-                            "http-server":  "^14.1.1"
+                            "http-server":  "^14.1.1",
+                            "gulp": "^4.0.2",
+                            "gulp-add-src": "^1.0.0",
+                            "gulp-concat-util": "^0.5.5",
+                            "gulp-htmlmin": "^5.0.1",
+                            "gulp-plumber": "^1.2.1",
+                            "gulp-rename": "^2.0.0",
+                            "gulp-size": "^4.0.1",
+                            "gulp-terser": "^2.1.0",                            "through2": "^4.0.2",
+                            "vinyl": "^2.2.1",
+                            "vite": "^4.3.9"
                         },
-    "description":  "A rhythm-based game where audio creates the gameplay environment"
+    "description":  "A moonwalk rhythm-based game where audio creates the gameplay environment"
 }

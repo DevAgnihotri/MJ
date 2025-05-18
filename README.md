@@ -1,5 +1,7 @@
 # Outlier AI Hackathon Project
 
+Created by Dev Agnihotri
+
 This project includes a collection of interactive mini-games and features, including:
 
 - MJ Music Player
@@ -10,5 +12,6 @@ This project includes a collection of interactive mini-games and features, inclu
 - Mafia Game
 - Moonwalk Experience
 - Pinball Game
+- PMD-Clock (Perpetual MJ Dance Clock)
 - Rock Paper Scissors
 - Speed Analysis Tool

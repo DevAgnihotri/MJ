@@ -16,7 +16,7 @@ const GameBar = () => (
     <a href="/mafia/index.html" target="_blank" rel="noopener noreferrer">
       <span></span><span></span><span></span><span></span>
       3. MAFIA
-    </a>    <a href="/moonwalk/index.html" target="_blank" rel="noopener noreferrer">
+    </a>    <a href="/moonwalk" rel="noopener noreferrer">
       <span></span><span></span><span></span><span></span>
       4. MOONWALK
     </a>

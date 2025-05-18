@@ -7,6 +7,7 @@ import Story from "./components/Story";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 import GameBar from "./components/GameBar";
+// import MoonwalkApp from "./components/MoonwalkApp";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             }
           />
           <Route path="/gamebar" element={<GameBar />} />
+          {/* <Route path="/moonwalk" element={<MoonwalkApp />} /> */}
         </Routes>
       </main>
     </Router>

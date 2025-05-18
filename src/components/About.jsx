@@ -54,7 +54,7 @@ const About = () => {
             <h3 className="mb-2 text-xl font-bold">MJ - HUB Inspired by the King of Pop</h3>
             <div className="flex flex-col gap-2">
               <span>Some Mini-Apps:</span>
-              <span>MJ Quiz,
+              <span>Music Player,
               Color Pallete maker,
               Dice Roller,</span> 
               <span>Memory Matching Game

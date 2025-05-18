@@ -1,0 +1,107 @@
+/* MJ Dance Animations for PMD Clock */
+
+@keyframes moonwalk {
+  0% {
+    transform: translateX(0) rotate(0deg);
+  }
+  25% {
+    transform: translateX(-5px) rotate(-2deg);
+  }
+  50% {
+    transform: translateX(0) rotate(0deg);
+  }
+  75% {
+    transform: translateX(5px) rotate(2deg);
+  }
+  100% {
+    transform: translateX(0) rotate(0deg);
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes tilt {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+.active-timer {
+  animation: pulse 2s infinite;
+}
+
+.break-mode {
+  animation: moonwalk 5s infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.session-mode {
+  animation: tilt 6s infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.reset-spin {
+  animation: spin 0.5s ease-in-out;
+}
+
+/* MJ Dance emojis that appear during timer */
+.mj-emoji {
+  position: fixed;
+  font-size: 24px;
+  opacity: 0;
+  z-index: 100;
+  animation: float-up 3s forwards;
+  will-change: transform, opacity;
+  pointer-events: none; /* Prevent interaction with emojis */
+  text-align: center; /* Center the emoji text */
+  width: 40px;
+  margin-left: -20px;
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-80px);
+  }
+}
