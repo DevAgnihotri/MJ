@@ -33,14 +33,16 @@ const Contact = () => {
         <div className="flex flex-col items-center text-center">
           <p className="mb-10 font-general text-[10px] uppercase">
             Let&apos;s Connect
-          </p>
-
-          <AnimatedTitle
+          </p>          <AnimatedTitle
             title="Join the <b>R</b>hythm, <br /> Be a Part of <br /> MJ&apos;s L<b>e</b>gacy!"
             className="special-font !md:text-[6.2rem] w-full font-zentry !text-5xl !font-black !leading-[.9]"
           />
 
-          <Button title="MUSIC PLAYER" containerClass="mt-10 cursor-pointer" />
+          <Button 
+            title="MUSIC PLAYER" 
+            containerClass="mt-10 cursor-pointer" 
+            onClick={() => window.location.href = '/music-player/index.html'}
+          />
         </div>
       </div>
     </div>
