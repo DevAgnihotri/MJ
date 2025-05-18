@@ -150,9 +150,7 @@ const Hero = () => {
             {/* MJ Tribute: Stylized heading spells out "MICHAEL" */}
             <h1 className="special-font hero-heading text-blue-100">
               <b>M</b>ICH<b>A</b>EL
-            </h1>
-
-            <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
+            </h1>            <p className="mb-5 max-w-64 font-robert-regular text-blue-100">
               Step into the Rhythm and Experience the Legend<br /> Made for Outlier AI Hackathon
             </p>
 
@@ -161,6 +159,7 @@ const Hero = () => {
               title="music player"
               leftIcon={<TiLocationArrow />}
               containerClass="bg-yellow-300 flex-center gap-1"
+              onClick={() => window.location.href = '/music-player/index.html'}
             />
           </div>
         </div>
