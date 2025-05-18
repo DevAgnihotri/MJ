@@ -3,10 +3,11 @@ import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useRef, useState } from "react";
 import { TiLocationArrow } from "react-icons/ti";
+import { useNavigate } from "react-router-dom";
 
 import Button from "./Button";
 
-const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
+const navItems = ["Game HUB", "Github", "Read Me", "404", "to play song ->"];
 
 const NavBar = () => {
   // State for toggling audio and visual indicator
@@ -16,6 +17,7 @@ const NavBar = () => {
   // Refs for audio and navigation container
   const audioElementRef = useRef(null);
   const navContainerRef = useRef(null);
+  const navigate = useNavigate();
 
   const { y: currentScrollY } = useWindowScroll();
   const [isNavVisible, setIsNavVisible] = useState(true);
@@ -84,15 +86,29 @@ const NavBar = () => {
           {/* Navigation Links and Audio Button */}
           <div className="flex h-full items-center">
             <div className="hidden md:block">
-              {navItems.map((item, index) => (
-                <a
-                  key={index}
-                  href={`#${item.toLowerCase()}`}
-                  className="nav-hover-btn"
-                >
-                  {item}
-                </a>
-              ))}
+              {navItems.map((item, index) =>
+                item === "Game HUB" ? (
+                  <a
+                    key={index}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      navigate("/gamebar");
+                    }}
+                    href="/gamebar"
+                    className="nav-hover-btn cursor-pointer"
+                  >
+                    {item}
+                  </a>
+                ) : (
+                  <a
+                    key={index}
+                    href={`#${item.toLowerCase()}`}
+                    className="nav-hover-btn"
+                  >
+                    {item}
+                  </a>
+                )
+              )}
             </div>
 
             <button

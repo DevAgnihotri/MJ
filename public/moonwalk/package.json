@@ -1,0 +1,14 @@
+{
+    "version":  "2.0.0",
+    "license":  "MIT",
+    "name":  "audio-dash",
+    "scripts":  {
+                    "start":  "http-server -o"
+                },
+    "private":  true,
+    "author":  "Steven Lambert (updated by you)",
+    "devDependencies":  {
+                            "http-server":  "^14.1.1"
+                        },
+    "description":  "A rhythm-based game where audio creates the gameplay environment"
+}

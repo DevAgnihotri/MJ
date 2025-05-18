@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>MJ Music Player</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css'>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body>
+    <div class="music-container">
+      <div class="music-info">
+        <h4 id="title">Beat It</h4>
+        <div class="progress-container">
+          <div class="progress"></div>
+        </div>
+      </div>
+    
+      <div class="img-container">
+        <img src="/img/beat_it.jpg" alt="music-cover" id="cover" />
+      </div>
+
+    <div class="navigation">
+        <button id="prev" class="action-btn">
+          <i class="fas fa-backward"></i>
+        </button>
+        <button id="play" class="action-btn action-btn-big">
+          <i class="fas fa-play"></i>
+        </button>
+        <button id="next" class="action-btn">
+          <i class="fas fa-forward"></i>
+        </button>
+      </div>
+      
+      <audio src="/audio/Beat_It.mp3"></audio>
+    </div>
+  </body>
+<!-- partial -->
+  <script src="./script.js"></script>
+</body>
+</html>

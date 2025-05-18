@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MJ Memory Match Game</title>
+    <link rel="stylesheet" href="./colorfulGame.css">
+</head>
+<body>
+    <!-- Note: Please add YDRCAU.mp4 (You Don't Really Care About Us) to your public/audio folder -->
+    <audio id="bg-music" src="/audio/YDRCAU.mp4" autoplay loop></audio>
+    <h1 class="mj-title">Michael Jackson Memory Match</h1>
+    <div class="container mj-bg">
+        <div id="game-container">
+         <!-- Cards will be generated dynamically using JavaScript -->
+        </div>
+        <div class="startMain">
+            <p id="score">Score: 0</p>
+            <p id="timer">Time Left: 30</p>
+            <button id="startbtn">Start/Restart</button>
+            <div id="message">Click Start to begin the MJ Memory Challenge!</div>
+        </div>
+    </div>
+    <script src="./colorful_memory_game.js"></script>
+</body>
+</html>

@@ -103,12 +103,10 @@ const Features = () => (
     <div className="container mx-auto px-3 md:px-10">
       <div className="px-5 py-32">
         <p className="font-circular-web text-lg text-blue-50">
-          Into the Metagame Layer
+          Into the King of POP Layer
         </p>
         <p className="max-w-md font-circular-web text-lg text-blue-50 opacity-50">
-          Immerse yourself in a rich and ever-expanding universe where a vibrant
-          array of products converge into an interconnected overlay experience
-          on your world.
+          Step into a universe of Michael Jackson inspired apps—where music, dance, and creativity converge to celebrate the King of Pop in digital form.
         </p>
       </div>
 
@@ -117,10 +115,10 @@ const Features = () => (
           src="videos/feature-1.mp4"
           title={
             <>
-              radia<b>n</b>t
+              Moo<b>n</b>walk
             </>
           }
-          description="A cross-platform metagame app, turning your activities across Web2 and Web3 games into a rewarding adventure."
+          description="A rhythm game app where you master MJ's iconic beats to win the game"
           isComingSoon
         />
       </BentoTilt>
@@ -131,10 +129,10 @@ const Features = () => (
             src="videos/feature-2.mp4"
             title={
               <>
-                zig<b>m</b>a
+                Gl<b>o</b>ve Cam
               </>
             }
-            description="An anime and gaming-inspired NFT collection - the IP primed for expansion."
+            description="Snap photos and add MJ-inspired AR effects—sparkling gloves, hats, and more—to your selfies."
             isComingSoon
           />
         </BentoTilt>
@@ -144,10 +142,10 @@ const Features = () => (
             src="videos/feature-3.mp4"
             title={
               <>
-                n<b>e</b>xus
+                Thrill<b>e</b>r Studio
               </>
             }
-            description="A gamified social hub, adding a new dimension of play to social interaction for Web3 communities."
+            description="Create your own music videos with MJ's legendary tracks and share them with the world."
             isComingSoon
           />
         </BentoTilt>
@@ -157,10 +155,10 @@ const Features = () => (
             src="videos/feature-4.mp4"
             title={
               <>
-                az<b>u</b>l
+                B<b>a</b>d Quiz
               </>
             }
-            description="A cross-world AI Agent - elevating your gameplay to be more fun and productive."
+            description="Test your knowledge of Michael Jackson's life, music, and legacy in this fun trivia challenge."
             isComingSoon
           />
         </BentoTilt>
@@ -168,7 +166,7 @@ const Features = () => (
         <BentoTilt className="bento-tilt_2">
           <div className="flex size-full flex-col justify-between bg-violet-300 p-5">
             <h1 className="bento-title special-font max-w-64 text-black">
-              M<b>o</b>re co<b>m</b>ing s<b>o</b>on.
+              M<b>o</b>re MJ a<b>p</b>ps <b>a</b>v<b>a</b>il<b>b</b>e h<b>e</b>r<b>e</b>.
             </h1>
 
             <TiLocationArrow className="m-5 scale-[5] self-end" />

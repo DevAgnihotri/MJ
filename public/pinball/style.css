@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css?family=Hind');
+
+:root {
+  --mj-black: #181818;
+  --mj-gold: #FFD700;
+  --mj-white: #fff;
+  --mj-red: #E10600;
+  --mj-blue: #1A1AFF;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  color: var(--mj-gold);
+  background: linear-gradient(135deg, var(--mj-black) 60%, var(--mj-blue) 100%) !important;
+  font-family: 'Hind', sans-serif;
+  text-transform: uppercase;
+}
+
+.container {
+  position: relative;
+  line-height: 0;
+  box-shadow: 0 0 40px var(--mj-gold), 0 0 80px var(--mj-blue);
+  background: rgba(24,24,24,0.95);
+  border-radius: 20px;
+  border: 3px solid var(--mj-gold);
+}
+
+.score span {
+  font-size: 3.25rem;
+  color: var(--mj-gold);
+  text-shadow: 0 0 10px var(--mj-white), 0 0 20px var(--mj-gold);
+}
+
+.score {
+  color: var(--mj-gold);
+}
+
+.current-score {
+  left: 10px;
+}
+
+.high-score {
+  text-align: right;
+  right: 10px;
+}
+
+.trigger {
+  -webkit-appearance: none;
+  appearance: none;
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  bottom: 10px;
+  border: 2px solid var(--mj-red);
+  border-radius: 50%;
+  color: var(--mj-black);
+  background-color: var(--mj-gold);
+  text-align: center;
+  line-height: 80px;
+  font-size: 1.25rem;
+  text-transform: inherit;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 0 0 10px var(--mj-gold), 0 0 20px var(--mj-red);
+  font-weight: bold;
+  letter-spacing: 2px;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.trigger:active {
+  background-color: var(--mj-red);
+  color: var(--mj-white);
+  box-shadow: 0 0 20px var(--mj-red), 0 0 40px var(--mj-gold);
+}
+
+.left-trigger {
+  left: 10px;
+}
+
+.right-trigger {
+  right: 60px;
+}
+
+canvas {
+  overflow: hidden;
+  border-radius: 10px;
+  border: 3px solid var(--mj-gold);
+  box-shadow: 0 0 30px var(--mj-gold), 0 0 60px var(--mj-blue);
+  background: var(--mj-black);
+}
+
+@keyframes mj-sparkle {
+  0%, 100% { box-shadow: 0 0 10px var(--mj-gold), 0 0 20px var(--mj-gold); }
+  50% { box-shadow: 0 0 40px var(--mj-gold), 0 0 80px var(--mj-blue); }
+}
+
+.container, .trigger, canvas {
+  animation: mj-sparkle 2s infinite alternate;
+}
+
+/* responsive scaling, because pinball tables are tall */
+@media (min-height: 0px) {
+  .container { transform: scale(0.25); }
+}
+@media (min-height: 400px) {
+  .container { transform: scale(0.5); }
+}
+@media (min-height: 600px) {
+  .container { transform: scale(0.75); }
+}
+@media (min-height: 800px) {
+  .container { transform: scale(1); }
+}
