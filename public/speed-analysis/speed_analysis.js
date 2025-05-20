@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set initial song to match default selection (Beat It)    // Map of lyrics to song files
     const songMap = {
         thriller: 'TDRCAU', // Using available tracks for songs we don't have 
-        billie_jean: 'Bad',
+        billie_jean: 'Billie_Jean',
         beat_it: 'Beat_It',
         smooth_criminal: 'Smooth_Criminal',
         bad: 'Bad'
